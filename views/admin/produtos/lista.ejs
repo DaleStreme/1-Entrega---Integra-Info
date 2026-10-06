@@ -1,0 +1,68 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+
+<main class="container py-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">
+                <i class="bi bi-box-seam"></i> Produtos
+            </h4>
+            <a href="/admin/produtos/form-cadastrar" class="btn btn-light btn-sm">
+                <i class="bi bi-plus-circle"></i> Novo produto
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <td>ID</td>
+                            <td>Imagem</td>
+                            <td>Produto</td>
+                            <td>Categoria</td>
+                            <td>Gênero</td>
+                            <td>Tamanho</td>
+                            <td>Valor</td>
+                            <td style="width: 180px;">Ações</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let i = 0; i < produtos.length; i++) { %>
+                            <tr>
+                                <td><%= produtos[i].id %></td>
+                                <td>
+                                    <% if (produtos[i].imagem) { %>
+                                        <img src="/uploads/<%= produtos[i].imagem %>" alt="<%= produtos[i].nome %>" style="width: 50px; height: 50px; object-fit: cover;" class="rounded border">
+                                    <% } else { %>
+                                        <span class="text-muted">Sem foto</span>
+                                    <% } %>
+                                </td>
+                                <td><%= produtos[i].nome %></td>
+                                <td><%= produtos[i].categoria %></td>
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        <%= produtos[i].genero %>
+                                    </span>
+                                </td>
+                                <td><%= produtos[i].tamanho %></td>
+                                <td>R$ <%= Number(produtos[i].valor).toFixed(2).replace('.', ',') %></td>
+                                <td>
+                                    <a href="#" class="btn btn-secondary btn-sm">
+                                        <i class="bi bi-pencil"></i> Editar
+                                    </a>
+                                    <a href="/admin/produtos/excluir/<%= produtos[i].id %>" 
+                                       class="btn btn-dark btn-sm"
+                                       >
+                                        <i class="bi bi-trash"></i> Excluir
+                                    </a>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>
